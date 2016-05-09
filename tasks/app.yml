@@ -1,4 +1,4 @@
-- set_fact: socks_path={{ shared_path }}/tmp/sockets
+- set_fact: socks_path={{ shared_path }}/sockets
   tags: always
 
 - name: Ensure sockets directory exists
@@ -8,7 +8,7 @@
 - set_fact: app_sock={{ socks_path }}/app.sock
   tags: always
 
-- set_fact: pids_path={{ shared_path }}/tmp/pids
+- set_fact: pids_path={{ shared_path }}/pids
   tags: always
 
 - name: Ensure pids directory exists
@@ -17,9 +17,6 @@
 
 - set_fact: app_pid={{ pids_path }}/app.pid
   tags: always
-
-- name: Copy unicorn config
-  template: src=../configs/templates/unicorn_config.rb.j2 dest={{release_path}}/config/unicorn.rb
 
 - include: ../tasks/app_stop.yml
 - include: ../tasks/app_start.yml

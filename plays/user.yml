@@ -5,7 +5,7 @@
   # Don't need to gather facts about the system
   gather_facts: no
 
-  tasks:   
+  tasks:
     - include: ../tasks/install_rvm.yml
     - include: ../tasks/install_ruby.yml
 

@@ -1,9 +1,10 @@
 upstream app_server {
-    server unix:{{shared_path}}/tmp/sockets/app.sock fail_timeout=0;
+    server unix:{{shared_path}}/sockets/app.sock fail_timeout=0;
 }
 
 server {
     listen   80;
+    listen   443 ssl;
     root {{current_path}}/public;
     server_name {{server_name}};
     index index.htm index.html;
@@ -18,6 +19,7 @@ server {
 
      location @app {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $http_host;
             proxy_redirect off;
             proxy_pass http://app_server;
